@@ -17,23 +17,23 @@ import (
 // Server encapsulates all of the parameters necessary for starting up
 // the server. These can either be set via command line or directly.
 type Server struct {
-	APIServer       string
-	APIToken        string
-	AppPort         string
-	BaseRoleARN     string
-	DefaultIAMRole  string
-	IAMRoleKey      string
-	MetadataAddress string
-	HostInterface   string
-	HostIP          string
+	APIServer             string
+	APIToken              string
+	AppPort               string
+	BaseRoleARN           string
+	DefaultIAMRole        string
+	IAMRoleKey            string
+	MetadataAddress       string
+	HostInterface         string
+	HostIP                string
 	BackoffMaxInterval    time.Duration
 	BackoffMaxElapsedTime time.Duration
-	AddIPTablesRule bool
-	Insecure        bool
-	Verbose         bool
-	Version         bool
-	iam             *iam
-	k8s             *k8s
+	AddIPTablesRule       bool
+	Insecure              bool
+	Verbose               bool
+	Version               bool
+	iam                   *iam
+	k8s                   *k8s
 }
 
 type appHandler func(http.ResponseWriter, *http.Request)
@@ -76,7 +76,7 @@ func (s *Server) getRole(IP string) (string, error) {
 	expBackoff.MaxInterval = s.BackoffMaxInterval
 	expBackoff.MaxElapsedTime = s.BackoffMaxElapsedTime
 
-	err: = backoff.Retry(operation, expBackoff)
+	err := backoff.Retry(operation, expBackoff)
 	if err != nil {
 		return "", err
 	}
