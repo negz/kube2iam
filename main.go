@@ -7,9 +7,9 @@ import (
 	log "github.com/Sirupsen/logrus"
 	"github.com/spf13/pflag"
 
-	"github.com/jtblin/kube2iam/cmd"
-	"github.com/jtblin/kube2iam/iptables"
-	"github.com/jtblin/kube2iam/version"
+	"github.com/negz/kube2iam/cmd"
+	"github.com/negz/kube2iam/iptables"
+	"github.com/negz/kube2iam/version"
 )
 
 const (

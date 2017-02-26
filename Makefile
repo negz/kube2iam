@@ -1,4 +1,4 @@
-ORG_PATH="github.com/jtblin"
+ORG_PATH="github.com/negz"
 BINARY_NAME := kube2iam
 REPO_PATH="$(ORG_PATH)/$(BINARY_NAME)"
 VERSION_VAR := $(REPO_PATH)/version.Version
@@ -8,7 +8,7 @@ REPO_VERSION := $$(git describe --abbrev=0 --tags)
 BUILD_DATE := $$(date +%Y-%m-%d-%H:%M)
 GIT_HASH := $$(git rev-parse --short HEAD)
 GOBUILD_VERSION_ARGS := -ldflags "-s -X $(VERSION_VAR)=$(REPO_VERSION) -X $(GIT_VAR)=$(GIT_HASH) -X $(BUILD_DATE_VAR)=$(BUILD_DATE)"
-IMAGE_NAME := jtblin/$(BINARY_NAME)
+IMAGE_NAME := negz/$(BINARY_NAME)
 ARCH ?= darwin
 METALINTER_CONCURRENCY ?= 4
 
@@ -21,10 +21,10 @@ setup:
 	glide install
 
 build: *.go fmt
-	go build -o build/bin/$(ARCH)/$(BINARY_NAME) $(GOBUILD_VERSION_ARGS) github.com/jtblin/$(BINARY_NAME)
+	go build -o build/bin/$(ARCH)/$(BINARY_NAME) $(GOBUILD_VERSION_ARGS) ${ORG_PATH}/$(BINARY_NAME)
 
 build-race: *.go fmt
-	go build -race -o build/bin/$(ARCH)/$(BINARY_NAME) $(GOBUILD_VERSION_ARGS) github.com/jtblin/$(BINARY_NAME)
+	go build -race -o build/bin/$(ARCH)/$(BINARY_NAME) $(GOBUILD_VERSION_ARGS) ${ORG_PATH}/$(BINARY_NAME)
 
 build-all:
 	go build $$(glide nv)
@@ -71,7 +71,7 @@ watch:
 	CompileDaemon -color=true -build "make test"
 
 cross:
-	CGO_ENABLED=0 GOOS=linux go build -o build/bin/linux/$(BINARY_NAME) $(GOBUILD_VERSION_ARGS) -a -installsuffix cgo  github.com/jtblin/$(BINARY_NAME)
+	CGO_ENABLED=0 GOOS=linux go build -o build/bin/linux/$(BINARY_NAME) $(GOBUILD_VERSION_ARGS) -a -installsuffix cgo  ${ORG_PATH}/$(BINARY_NAME)
 
 docker: cross
 	docker build -t $(IMAGE_NAME):$(GIT_HASH) .
